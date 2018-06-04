@@ -22,7 +22,7 @@ public char findMostFrequent(String s) {
 
 
 Follow Up:
-优化时间，count维持两个，频率第一大，第二大，1-2如果>=剩下的，就可以了。
+优化时间，count维持两个，频率第一大，第二大，1-2如果>=剩下的，就可以了。可以提前结束
 
 public char findMostFrequent(String s) {
     Map<Character,Integer> map=new HashMap<>();
