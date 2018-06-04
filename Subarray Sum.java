@@ -50,6 +50,25 @@ public int maxSubArrayLen(int[] nums, int k) {
 而且由于两道题的要求不同，它们的输入数据也不同：这道题的输入数据可正可负；上一题却只能是非负数。
 
 
+560. Subarray Sum Equals K
+
+def subarraySum(self, nums, k):
+    """
+    :type nums: List[int]
+    :type k: int
+    :rtype: int
+    """
+    record = {0:1}
+    res = sum = 0
+    for i in range(len(nums)):
+        sum += nums[i]
+        if sum - k in record:
+            res += record[sum-k]
+        if sum in record:
+            record[sum] += 1
+        else:
+            record[sum] = 1
+    return res
 
 
 
