@@ -30,6 +30,29 @@ public int shortestKnightMove(int a1, int a2, int b1, int b2) {
 	return -1;
 }
 
+import collections
+def moveKnight(a1, a2, b1, b2):
+    def isvalid(node):
+        return 0 <= node[0] < 8 and 0 <= node[1] < 8
+    directions = [[1,2], [1,-2], [-1, 2], [-1, -2], [2,1], [-2, 1], [2, -1], [-2, -1]]
+    visited = [[False] * 8] * 8
+    deque = collections.deque()
+    deque.append([a1, a2])
+    res = 1
+    while deque:
+        length = len(deque)
+        for i in range(length):
+            node = deque.popleft()
+            if not isvalid(node) or visited[node[0]][node[1]]:
+                continue
+            visited[node[0]][node[1]] = True
+            if node[0] == b1 and node[1] == b2:
+                return res
+            for d in directions:
+                deque.append([node[0]+d[0], node[1]+d[1]])
+        res += 1
+    return -1
+
 
 def knightProbability(self, N, K, r, c):
 	"""
