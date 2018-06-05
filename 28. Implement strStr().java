@@ -22,7 +22,7 @@ public int strStr(String haystack, String needle) {
 }
 
 
-*******变种*******
+*******变种 follow up*******
 find the first index in haystack that starts with an anagram of needle
 assume only lowercase letters in strings
 

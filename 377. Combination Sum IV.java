@@ -1,4 +1,4 @@
-9377. Combination Sum IV
+377. Combination Sum IV
 
 比如[1,2,3] 4例子，当我们在计算dp[3]的时候，3可以拆分为1+x，而x即为x=dp[3-1]=dp[2]，3也可以拆分为2+x，此时x为x=dp[3-2]=dp[1]，
 3同样可以拆为3+x，此时x为x=dp[3-3]=dp[0]，我们把所有的情况加起来就是组成3的所有情况了。
@@ -16,6 +16,15 @@ dp[4] = 1 + 2 + 4 = 7 (we have no 4 in nums, so dp[4] = 1 + 2 + 4 = 7, not 1 + 1
 // where 0 <= i < nums.length, and target >= nums[i].
 // In the example given, we can actually find the # of combinations of 4 with the # of combinations of 3(4 - 1), 2(4- 2) and 1(4 - 3). 
 // As a result, comb[4] = comb[4-1] + comb[4-2] + comb[4-3] = comb[3] + comb[2] + comb[1].
+
+def combinationSum4(self, nums, target):
+	nums, combs = sorted(nums), [1] + [0] * (target)
+	for i in range(target + 1):
+		for num in nums:
+			if num  > i: break
+			if num == i: combs[i] += 1
+			if num  < i: combs[i] += combs[i - num]
+	return combs[target]
 
 public int combinationSum4(int[] nums, int target) {
 	if (nums.length == 0)	return 0; // important since dp[0] = 1

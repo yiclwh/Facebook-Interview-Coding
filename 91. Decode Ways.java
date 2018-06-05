@@ -19,6 +19,20 @@ Test:
 "201" -> 1 // 0 can only be at the units of a two-digit number
 "12" -> 2
 
+def numDecodings(self, s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    record = [0] * (len(s) + 1)
+    record[0] = 1
+    for i in range(1, len(s)+1):
+        if s[i-1] != '0':
+            record[i] += record[i-1]
+        if i >= 2 and (s[i-2] == '1' or (s[i-2] == '2' and int(s[i-1]) < 7)):
+            record[i] += record[i-2]
+    return record[len(s)]
+
 注意： 问输入是否全为数字，若否则还需检测其他非法字符
 
 Solution 1: DP

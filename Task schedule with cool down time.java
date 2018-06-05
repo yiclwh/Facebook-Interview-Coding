@@ -7,7 +7,7 @@
 举个例子，thread: 1, 2, 1, 1, 3, 4; 冷却时间: 2 time slot，scheduler应该是这样的：1, 2, _, 1, _, _, 1, 3, 4，最后返回9. 
 
 
-1，最正常的task schedule：输出的是最后的时间
+1，最正常的task schedule：输出的是最后的时间 不能交换task顺序，保持序列不变
 private static int taskSchedule1(int[] tasks, int cooldown) {
   	if (tasks == null || tasks.length == 0)    return 0;
   	HashMap<Integer, Integer> map = new HashMap<>();

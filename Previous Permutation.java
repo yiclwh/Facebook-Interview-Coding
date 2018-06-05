@@ -48,6 +48,31 @@ private void reverse(int[] nums, int left, int right) {
 2764531 （交换3,4的位置）
 2764135 （把4后面的5,3,1反转）
 
+def nextPermutation(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: void Do not return anything, modify nums in-place instead.
+    """
+    l = len(nums)
+    left = -1
+    for i in range(l-1)[::-1]:
+        if nums[i] < nums[i+1]:
+            left = i
+            break
+    if left == -1:
+        return nums.sort()
+    right = -1
+    for i in range(left+1, l)[::-1]:
+        if nums[i] > nums[left]:
+            right = i
+            break
+    nums[left], nums[right] = nums[right], nums[left]
+    start, end = left + 1, l -1
+    while start < end:
+        nums[start], nums[end] = nums[end], nums[start]
+        start += 1
+        end -= 1
+
 public void nextPermutation(int[] nums) {
     if (nums.length < 2)    return;
     int firstSmaller = nums.length - 2;

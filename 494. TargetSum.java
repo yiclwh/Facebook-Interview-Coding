@@ -36,6 +36,21 @@ Solution 2: DFS + memoization
 先找到第一步的所有可能，在每种第一步的可能下再试遍第二步的所有可能……以这种方式试遍所有的组合。但是如果中途发现某一个组合肯定没前途，则立刻放弃这个组合（Backtrack）。
 此题和Combination sum完全不同！
 combination sum是每次在数组空间内选择一个数使得最终sum = target，而此题是每次对当前位置的数选择 + 或 -，最终目标是给每个数都赋予符号并使sum = target
+def findTargetSumWays(self, nums, S):
+    def findTarget(i, s):
+        if (i, s) not in cache:
+            r = 0
+            if i == len(nums):
+                if s == 0:
+                    r = 1
+            else:
+                r = findTarget(i+1, s-nums[i]) + findTarget(i+1, s+nums[i])
+            cache[(i, s)] = r
+        return cache[(i, s)]
+    
+    cache = {}
+    return findTarget(0, S)
+
 
 Input: nums is [1, 1, 1, 1, 1], S is 3. 
 Output: 5

@@ -29,3 +29,26 @@ public int shortestKnightMove(int a1, int a2, int b1, int b2) {
 	}
 	return -1;
 }
+
+
+def knightProbability(self, N, K, r, c):
+	"""
+	:type N: int
+	:type K: int
+	:type r: int
+	:type c: int
+	:rtype: float
+	"""
+	directions = [(1, 2), (-1, 2), (1, -2), (-1, -2), (2, 1), (2, -1), (-2, -1), (-2, 1)]
+	knightDict, tempDict = [[0] * N for _ in range(N)], [[0] * N for _ in range(N)]
+	knightDict[r][c] = 1
+	for k in range(K):
+		for i in range(N):
+			for j in range(N):
+				if knightDict[i][j] > 0:
+					for d in directions:
+						if 0 <= i+d[0] < N and 0 <= j+d[1] < N:
+							tempDict[i+d[0]][j+d[1]] += knightDict[i][j]
+		knightDict = tempDict[:][:]
+		tempDict = [[0] * N for _ in range(N)]
+	return float(sum(map(sum, knightDict)))/(8 ** K)

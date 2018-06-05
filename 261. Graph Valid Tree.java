@@ -4,6 +4,25 @@
 Given n = 5 and edges = [[0, 1], [0, 2], [0, 3], [1, 4]], return true.
 Given n = 5 and edges = [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]], return false.
 
+def validTree(self, n, edges):
+    """
+    :type n: int
+    :type edges: List[List[int]]
+    :rtype: bool
+    """
+    roots = [-1] * n
+    for e in edges:
+        a = self.findroot(e[0], roots)
+        b = self.findroot(e[1], roots)
+        if a == b:
+            return False
+        roots[a] = b
+    return n-1 == len(edges)
+    
+def findroot(self, n, roots):
+    while roots[n] != -1:
+        n = roots[n]
+    return n
 
 Test:
 //1. corner case: n == 1 && edges.length == 0. eg. n = 1, [], it's true

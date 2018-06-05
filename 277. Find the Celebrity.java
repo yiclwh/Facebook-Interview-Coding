@@ -1,5 +1,15 @@
 277. Find the Celebrity
 
+def findCelebrity(self, n):
+    cand = 0
+    for i in range(n)[1:]:
+        if knows(cand, i):
+            cand = i
+    for i in range(n):
+        if i != cand and (not knows(i, cand) or knows(cand, i)):
+            return -1
+    return cand
+
 public int findCelebrity(int n) {
     int candidate = 0;
     for (int i = 1; i < n; i++) 

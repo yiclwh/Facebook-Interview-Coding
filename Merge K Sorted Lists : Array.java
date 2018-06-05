@@ -55,6 +55,37 @@ public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 23. Merge k Sorted Lists
 // https://leetcode.com/problems/merge-k-sorted-lists/
 
+def mergeKLists(self, lists):
+    """
+    :type lists: List[ListNode]
+    :rtype: ListNode
+    """
+    if not lists:
+        return None
+    elif len(lists) == 1:
+        return lists[0]
+    else:
+        length = len(lists)
+        left = self.mergeKLists(lists[: length // 2])
+        right = self.mergeKLists(lists[length // 2:])
+        return self.mergeTwoList(left, right)
+        
+def mergeTwoList(self, a, b):
+    dummy = current = ListNode(0)
+    while a and b:
+        if a.val <= b.val:
+            current.next = a
+            a = a.next
+        else:
+            current.next = b
+            b = b.next
+        current = current.next
+    if a:
+        current.next = a
+    else:
+        current.next = b
+    return dummy.next    
+
 Solution 1: PriorityQueue 
 Time: O(nlogk), Space: O(k)
 

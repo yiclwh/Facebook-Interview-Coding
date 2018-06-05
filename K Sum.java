@@ -22,9 +22,36 @@ public List<int[]> findNumbersThatSumToTarget(int[] arr, int target) {
 此题Follow K sum 可以用递归做，见最后
 
 具体代码就是三个for循环，但是index 都是从0开始，所以会有重复 同 个数的问题。然后问我怎么fix这个bug, 就是把每个循环的起始index变成i+1，i是上 层循环的当前 index。
-接下来就问我时间复杂度，有没有 优解。
+接下来就问我时间复杂度，有没有 优解。 O(N^2)
 
-
+def threeSum(self, nums):
+	"""
+	:type nums: List[int]
+	:rtype: List[List[int]]
+	"""
+	if not nums or len(nums) < 3:
+		return []
+	nums.sort()
+	res = []
+	for i in range(len(nums)):
+		if i > 0 and nums[i] == nums[i-1]:
+			continue
+		start, end = i + 1, len(nums) - 1
+		while start < end:
+			sum = nums[i] + nums[start] + nums[end]
+			if sum == 0:
+				res.append([nums[i], nums[start], nums[end]])
+				start += 1
+				end-= 1
+				while start < end and nums[start] == nums[start -1]:
+					start += 1
+				while end > start and nums[end] == nums[end +1]:
+					end -= 1
+			elif sum < 0:
+				start += 1
+			else:
+				end -= 1
+	return res
 
 
 // https://leetcode.com/problems/3sum/
