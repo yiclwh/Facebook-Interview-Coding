@@ -1,5 +1,5 @@
 '''
-是有两个api给你：一个可以返回某font的高度；一个返回和某font的宽度（不同字母同字号宽度不一样高度一样）。
+最大font fit sentence on screen. 是有两个api给你：一个可以返回某font的高度；一个返回和某font的宽度（不同字母同字号宽度不一样高度一样）。
 '''
 
 def isValid(word, i, H, W):
