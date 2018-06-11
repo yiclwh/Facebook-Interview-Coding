@@ -10,6 +10,27 @@
 2.add 和newInterval重叠的
 3.add newInterval之后的
 
+def insert(self, intervals, newInterval):
+"""
+:type intervals: List[Interval]
+:type newInterval: Interval
+:rtype: List[Interval]
+"""
+    res = []
+    i = 0
+    while i < len(intervals) and intervals[i].end < newInterval.start:
+        res.append(intervals[i])
+        i += 1
+    while i < len(intervals) and intervals[i].start <= newInterval.end:
+        newInterval.start = min(newInterval.start, intervals[i].start)
+        newInterval.end = max(newInterval.end, intervals[i].end)
+        i += 1
+    res.append(newInterval)
+    while i < len(intervals):
+        res.append(intervals[i])
+        i += 1
+    return res
+
 public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
     List<Interval> res = new ArrayList<>();
     int i = 0;

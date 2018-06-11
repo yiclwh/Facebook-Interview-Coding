@@ -1,32 +1,33 @@
 class Solution(object):
+
     def threeSum(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        # sol 1:
-        # runtime: 1476ms
-        # res = []
-        # nums.sort()
-        # for i in range(len(nums)-2):
-        #     if i > 0 and nums[i] == nums[i-1]:
-        #         continue
-        #     lo, hi = i + 1, len(nums)-1
-        #     while lo < hi:
-        #         s = nums[i] + nums[lo] + nums[hi]
-        #         if s < 0: 
-        #             lo += 1
-        #         elif s > 0:
-        #             hi -= 1
-        #         else: # s = 0
-        #             res.append((nums[i],nums[lo],nums[hi]))
-        #             while lo < hi and nums[lo] == nums[lo + 1]: 
-        #                     lo += 1        
-        #             while lo < hi and nums[hi] == nums[hi - 1]: 
-        #                     hi -= 1
-        #             lo += 1
-        #             hi -= 1
-        # return res
+        if not nums or len(nums) < 3:
+            return []
+        nums.sort()
+        res = []
+        for i, num in enumerate(nums):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            j, k = i+1, len(nums) - 1
+            while j < k:
+                sum = nums[i] + nums[j] + nums[k]
+                if sum == 0:
+                    res.append([nums[i], nums[j], nums[k]])
+                    while j + 1 <k and nums[j] == nums[j + 1]:
+                        j += 1
+                    j += 1
+                    while k - 1 > j and nums[k] == nums[k - 1]:
+                        k -= 1
+                    k -= 1
+                elif sum < 0:
+                    j += 1
+                else: # sum > 0
+                    k -= 1
+        return res
     
         # sol 2:
         # runtime: 1227ms
