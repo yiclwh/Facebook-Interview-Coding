@@ -50,7 +50,8 @@ Robot 只记录 robot 面向的方向，以及跟 Room 说我要朝这个方向�
 手动维护方向稍微 tricky 一些，可以对照代码仔细思考以下这三句话。
 - 进格子：举个实例吧，假设当前位于 O 格子，上下左右分别为 UDLR，那么我要往周围移动的方向要顺着 
 DFS 的特点，D -> R -> L -> U（只要是十字形的移动就行，使得能够尽可能的直走，以及递归退回来的时候能面向进来时候的反向，
-比如 R -> U -> D -> L 也行）。. from: 1point3acres 
+比如 R -> U -> D -> L 也行）。. 
+
 - 换方向：比如以下代码，是对应前一步进格子的 D，也就是往下走的部分 (在 robot_cleaner.py 的 L334-L338)
 # down
 复制代码
@@ -60,7 +61,7 @@ DFS 的特点，D -> R -> L -> U（只要是十字形的移动就行，使得能
 如此才能在递归完准备离开当前格子的时候调用 robot.move() 离开。
 
 
-3. DFS + move 可传参方向. from: 1point3acres 
+3. DFS + move 可传参方向.
 代码：L393-L417，https://github.com/jaychsu/algorithm/blob/master/other/robot_cleaner.py#L393-L417
 
 没前面那么复杂，中心思想就两个。1) 如果能走，就直接过去 2) 如果走到一个走过的格子，就退回去，然后转回原来的方向
