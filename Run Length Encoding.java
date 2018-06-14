@@ -3,7 +3,7 @@ Given an input string, write a function that returns the Run Length Encoded stri
 
 For example, if the input string is “wwwwaaadexxxxxx”, then the function should return “w4a3d1e1x6”.
 
-time: O(n)
+time: O(n) encode string
 
 public String runLength(String s){
     if(s == null || s.length() == 0)    return "";

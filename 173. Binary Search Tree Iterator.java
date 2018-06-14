@@ -1,4 +1,25 @@
 173. Binary Search Tree Iterator
+# in order
+class BSTIterator(object):
+    def __init__(self, root):
+        self.root = root
+        self.stack = []
+        itr = self.root
+        while itr:
+            self.stack.append(itr)
+            itr = itr.left
+
+    def hasNext(self):
+        return len(self.stack) > 0
+
+    def next(self):
+        node = self.stack.pop()
+        if node.right:
+            itr = node.right
+            while itr:
+                self.stack.append(itr)
+                itr = itr.left
+        return node.val
 
 public class BSTIterator {
     private Stack<TreeNode> stack;
@@ -101,4 +122,24 @@ public List<Integer> postorderTraversal(TreeNode root) {
         }
     }
     return res;
+}
+
+# 删去一些node，求最后剩下的roots
+class Solution {
+    public List<Node> removedBST(Node root) {
+        List<Node> newRoots = new ArrayList<>();
+        preOrder(root, true, newRoots);
+        return newRoots;
+    }
+    private void preOrder(Node node, boolean parentRemoved, List<Node> newRoots) {
+        boolean selfRemove;
+        if(shouldRemove(node)) selfRemove = true;
+        if(parentRemoved && !selfRemove) newRoots.add(node);
+        if(node.left != null) {
+            preOrder(node.left, selfRemove, selfRemove);
+        }
+        if(node.right != null) {
+            preOrder(node.right, selfRemove, selfRemove);
+        }
+    }
 }

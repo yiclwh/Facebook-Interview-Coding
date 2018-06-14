@@ -23,5 +23,5 @@ def findMaxValue(values):
         for start in range(length - i):
             end = i + start
             # we subtract our opponent's optimal score from the pot we take
-            dp[start][end] = max(values[a] - dp[start+1][end], values[end] - dp[start][end-1])
+            dp[start][end] = max(values[start] - dp[start+1][end], values[end] - dp[start][end-1])
     return dp[0, length-1] > 0

@@ -1,6 +1,17 @@
 '''
-最大font fit sentence on screen. 是有两个api给你：一个可以返回某font的高度；一个返回和某font的宽度（不同字母同字号宽度不一样高度一样）。
+最大font size fit sentence on screen. 是有两个api给你：一个可以返回某font的高度；一个返回和某font的宽度（不同字母同字号宽度不一样高度一样）。
 '''
+def canFit(word, n, H, W):
+    start = 0
+    end = n -1
+    while start <= end:
+        mid = (start + end) // 2
+        if isValid(word, mid, H, W):
+            end = mid - 1
+        else:
+            start = mid + 1
+    return end
+
 def isValid(word, i, H, W):
     hasH = H
     hasW = W
@@ -13,7 +24,7 @@ def isValid(word, i, H, W):
             j += 1
         elif charW > hasW and charH <= hasH:
             hasW = W
-            charH -= charH
+            hasH -= charH
         else:
             return False
     return True

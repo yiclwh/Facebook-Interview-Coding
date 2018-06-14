@@ -1,4 +1,4 @@
-Random subset of size K
+random subset of size K
 
 [See @ Wikipedia] // https://en.wikipedia.org/wiki/Reservoir_sampling#Algorithm_R
 

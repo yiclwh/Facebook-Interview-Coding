@@ -1,5 +1,16 @@
 494. Target Sum
 // https://leetcode.com/problems/target-sum/
+Input: nums is [1, 1, 1, 1, 1], S is 3. 
+Output: 5
+Explanation: 
+
+-1+1+1+1+1 = 3
++1-1+1+1+1 = 3
++1+1-1+1+1 = 3
++1+1+1-1+1 = 3
++1+1+1+1-1 = 3
+
+There are 5 ways to assign symbols to make the sum of nums be target 3.
 
 Solution 1: subset sum + DP
 Time: O(nk)
@@ -51,6 +62,22 @@ def findTargetSumWays(self, nums, S):
     cache = {}
     return findTarget(0, S)
 
+def findTargetSumWays(self, nums, S):
+    def helper(nums, start, target, cache):
+        if (start, target) in cache:
+            return cache[(start, target)]
+        if start == len(nums):
+            if target == 0:
+                return 1
+            else:
+                return 0
+        pos = helper(nums, start + 1, target - nums[start], cache)
+        neg = helper(nums, start + 1, target + nums[start], cache)
+        result = pos + neg
+        cache[(start, target)] = result
+        return result   
+    cache = {}
+    return helper(nums, 0, S, cache)
 
 Input: nums is [1, 1, 1, 1, 1], S is 3. 
 Output: 5

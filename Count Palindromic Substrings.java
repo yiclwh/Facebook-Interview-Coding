@@ -20,7 +20,7 @@ private static int countExpandPalindromes(String s, int i, int j) {
 
 伪代码
 // for i from 0 through n - 1
-//      for r that makes both i - r and i + r in range 鏉ユ簮涓€浜�.涓夊垎鍦拌鍧�. 
+//      for r that makes both i - r and i + r in range 
 //           if charAt(i - r) != charAt(i + r) break;
 //           count++;
 

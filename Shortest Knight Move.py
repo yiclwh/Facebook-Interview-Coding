@@ -30,6 +30,8 @@ public int shortestKnightMove(int a1, int a2, int b1, int b2) {
 	return -1;
 }
 
+
+# BFS
 import collections
 def moveKnight(a1, a2, b1, b2):
     def isvalid(node):
