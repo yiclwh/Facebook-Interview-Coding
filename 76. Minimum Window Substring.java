@@ -4,35 +4,31 @@ S = "ADOBECODEBANC"
 T = "ABC"
 Minimum window is "BANC".
 
-//from collections import Counter
-def minWindow(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
-        def valid(record):
-            for k, v in record.items():
-                if v > 0:
-                    return False
-            return True
-        if not t or not s:
-            return ''
-        need = Counter(t)
+    def minWindow(self, s, t):
+        needs = {}
+        for c in t:
+            if c in needs:
+                needs[c] += 1
+            else:
+                needs[c] = 1
+        counter = len(needs)
         res = ''
-        minLength = float('inf')
-        j = 0
-        for i, c in enumerate(s):
-            if c not in need:
-                continue
-            while j < len(s) and not valid(need):
-                if s[j] in need:
-                    need[s[j]] -= 1
-                j += 1
-            if valid(need) and j - i < minLength:
-                res = s[i:j]
-                minLength = j - i
-            need[c] += 1
+        start = end = 0
+        for c in s:
+            if c in needs:
+                needs[c] -= 1
+                if needs[c] == 0:
+                    counter -= 1
+            end += 1
+            while counter == 0:
+                c = s[start]
+                if c in needs:
+                    needs[c] += 1
+                    if needs[c] > 0:
+                        counter += 1
+                if not res or len(res) > end- start:
+                    res = s[start: end]     
+                start += 1
         return res
 
 public String minWindow(String s, String t) {
