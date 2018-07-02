@@ -13,6 +13,48 @@ Convert BST to Circular Doubly LinkedList
 Solution 1: recursion
 O(n) time, O(h) space
 
+def convertBSTtoCircularDL(root):
+    head, prev = None, None
+    def convert(node):
+        if not node:
+            return
+        convert(node.left)
+        if prev:
+            prev.right = node
+        else:
+            head = node
+        right = node.right
+        head.left = node
+        node.right = head
+        prev = node
+        convert(right)
+    convert(root)
+    return head
+
+def convertBSTtoCircularDL(root):
+    if not root:
+        return    
+    stack = []
+    head, prev = None, None
+    def pushBack(node):
+        while node:
+            stack.append(node)
+            node = node.left
+    node = root
+    while node or stack:
+        pushBack(node)
+        node = stack.pop()
+        node.left = prev
+        right = node.right
+        if prev:
+            prev.right = node
+        else:
+            head = node
+        head.left = node
+        node.right = head
+        prev = node
+        node = node.right
+
 TreeNode head = null, prev = null;
 public TreeNode convertBSTtoCircularDL(TreeNode root) {
 	convert(root);

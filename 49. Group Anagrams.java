@@ -1,7 +1,7 @@
 
 
 
-}49. Group Anagrams
+49. Group Anagrams
 
 Solution 1: hash+counting sort
 

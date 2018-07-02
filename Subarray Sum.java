@@ -33,18 +33,19 @@ public int minSubArrayLen(int s, int[] nums) {
 
 325. Maximum Size Subarray Sum Equals k
 
-public int maxSubArrayLen(int[] nums, int k) {
-    int sum = 0, max = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    for (int i = 0; i < nums.length; i++) {
-        sum += nums[i];
-        if (sum == k)   max = i + 1;
-        else if (map.containsKey(sum - k))
-            max = Math.max(max, i - map.get(sum - k));
-        if (!map.containsKey(sum))  map.put(sum, i);
-    }
-    return max;
-}
+累加然后查找差在不在，要注意最后相同的sum只保存首次出现的那一个
+def maxSubArrayLen(nums, k):
+    map = {}
+    sum = res = 0
+    for i in range(len(nums)):
+        sum += nums[i]
+        if sum == k:
+            res = max(res, i+1)
+        elif sum - k in map:
+            res = max(res, i - map[sum - k])
+        if sum not in map:
+            map[sum] = i
+    return res
 
 这两道题的解法完全不同：这道题由于是求“equal”，所以用“hash”；上一题是求“大于等于”，所以是用two pointers尺取法。
 而且由于两道题的要求不同，它们的输入数据也不同：这道题的输入数据可正可负；上一题却只能是非负数。

@@ -2,6 +2,22 @@ Random return number according to weight
 // http://www.geeksforgeeks.org/random-number-generator-in-arbitrary-probability-distribution-fashion/
 return a random number from (0,...,n-1) with given weights
 
+def getCity(population):
+    def binarySearch(p):
+        start, end = 0, len(population)
+        while start < end:
+            mid = start + (end - start)//2
+            if population[mid] >= p:
+                end = mid
+            else:
+                start = mid + 1
+        return start
+    if not population:
+        return 0
+    for i in range(1, len(population)):
+        population[i] += population[i-1]
+    p = random.randint(1, population[-1])
+    return binarySearch(p)
 
 private static int randomNumber(int[] weights) {
     if (weights == null || weights.length == 0)    return 0;

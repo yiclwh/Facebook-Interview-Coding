@@ -5,6 +5,20 @@ For example, if the input string is “wwwwaaadexxxxxx”, then the function sho
 
 time: O(n) encode string
 
+def runLength(s):
+    res =''
+    count = 1
+    itr = s[0]
+    for i in eange(1, len(s)):
+        if s[i] == itr:
+            count += 1
+        else:
+            res.append(itr+str(count))
+            count = 1
+            itr = s[i]
+    res.append(itr+str(count))
+    return ''.join(res)
+
 public String runLength(String s){
     if(s == null || s.length() == 0)    return "";
     StringBuilder sb = new StringBuilder();

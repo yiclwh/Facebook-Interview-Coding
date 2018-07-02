@@ -2,6 +2,18 @@ random subset of size K
 
 [See @ Wikipedia] // https://en.wikipedia.org/wiki/Reservoir_sampling#Algorithm_R
 
+def getRandomK(nums, K):
+    if len(nums) <= K:
+        return nums
+    res = []
+    for i in range(len(nums)):
+        if i < K:
+            res.append(nums[i])
+        else:
+            j = random.randint(0, i)
+            if j < k:
+                res[j] = nums[i]
+    return res
 
 
 public int[] selectKItems(int[] nums, int k){
