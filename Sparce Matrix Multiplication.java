@@ -1,5 +1,49 @@
 Sparce Matrix Multiplication
+    
+    # brutal force: without hashtable
+    def multiply(self, A, B):
+        """
+        :type A: List[List[int]]
+        :type B: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        m, n, l = len(A), len(A[0]), len(B[0])
+        if n != len(B):
+            return []
+        res = [[0 for i in range(l)] for j in range(m)]
+        for i in range(m):
+            for k in range(n):
+                if A[i][k]:
+                    for j in range(l):
+                        if B[k][j]:
+                            res[i][j] += A[i][k] * B[k][j]
+        return res
 
+
+    # with one hashtable
+    def multiply(self, A, B):
+        """
+        :type A: List[List[int]]
+        :type B: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        m, n, l = len(A), len(A[0]), len(B[0])
+        if n != len(B):
+            return []
+        res = [[0 for i in range(l)] for j in range(m)]
+        record = {}
+        for i in range(n):
+            for j in range(l):
+                if B[i][j]:
+                    if i not in record:
+                        record[i] = {}
+                    record[i][j] = B[i][j]
+        for i in range(m):
+            for k in record:
+                if A[i][k]:
+                    for j in record[k]:
+                        res[i][j] += A[i][k] * record[k][j]
+        return res
     
 public int[][] sparseMatrixMultiplication(int[][] A, int[][] B) {
     if (A.length == 0 || A[0].length == 0 || B.length == 0 || B[0].length == 0) 
