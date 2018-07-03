@@ -19,14 +19,34 @@ Sparce Matrix Multiplication
                             res[i][j] += A[i][k] * B[k][j]
         return res
 
+    # with 2 tables
+    def multiply(self, A, B):
+        m, n, l = len(A), len(A[0]), len(B[0])
+        if n != len(B):
+            return []
+        res = [[0 for i in range(l)] for j in range(m)]
+        ta, tb = {}, {}
+        for i in range(m):
+            for j in range(n):
+                if A[i][j]:
+                    if i not in ta:
+                        ta[i] = {}
+                    ta[i][j] = A[i][j]
+        for i in range(n):
+            for j in range(l):
+                if B[i][j]:
+                    if i not in tb:
+                        tb[i] = {}
+                    tb[i][j] = B[i][j]
+        for i in ta:
+            for k in tb:
+                if k in ta[i]:
+                    for j in tb[k]:
+                        res[i][j] += ta[i][k] * tb[k][j]
+        return res
 
     # with one hashtable
     def multiply(self, A, B):
-        """
-        :type A: List[List[int]]
-        :type B: List[List[int]]
-        :rtype: List[List[int]]
-        """
         m, n, l = len(A), len(A[0]), len(B[0])
         if n != len(B):
             return []
