@@ -9,6 +9,29 @@ This process takes O(n3) time.
 
 Solution 2: DP
 Time: O(n^2)
+	
+def findArith(nums):
+    n = len(nums)
+    if n <= 2:
+        return n
+    count = [[2 for i in range(n)] for i in range(n)]
+    res = 2
+    for j in range(1, n-1):
+        i, k = j - 1, j + 1
+        while i >= 0 and k < n:
+            if 2* nums[j] > nums[i] + nums[k]:
+                k += 1
+            elif 2* nums[j] < nums[i] + nums[k]:
+                i -= 1
+            else:
+                count[j][k] = count[i][j] + 1
+                res = max(res, count[j][k])
+                k += 1
+                i -= 1
+    return res
+findArith([1, 7, 10, 15, 27, 29])
+findArith([5, 10, 15, 20, 25, 30])	
+
 // We can solve this problem in O(n2) time using Dynamic Programming. To get idea of the DP solution, let us first discuss solution of following simpler problem.
 
 // Given a sorted set, find if there exist three elements in Arithmetic Progression or not
