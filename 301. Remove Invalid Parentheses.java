@@ -5,6 +5,41 @@
 "(a)())()" -> ["(a)()()", "(a())()"]
 ")(" -> [""]
 
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+        List<String> ans = new ArrayList<String>();
+        remove(s, ans, 0, 0, 0, new char[] {'(', ')'});
+        return ans;
+    }
+    
+    private void remove(String s, List<String> ans, int count, int last_i, int last_j, char[] par) {
+        //count means the current number of par[0] - that of par[1]
+        if (last_i == s.length() && par[0] == ')') {
+            ans.add(new StringBuilder(s).reverse().toString());
+            return;
+        }
+        if (last_i == s.length() && par[0] == '(') {
+            String reverse = new StringBuilder(s).reverse().toString();
+            remove(reverse, ans, 0, 0, 0, new char[] {')', '('});
+            return;
+        }
+        char c = s.charAt(last_i);
+        if (c == par[1] && count == 0) {
+            for (int j = last_j; j <= last_i; j++) {
+                if (s.charAt(j) == par[1] && (j == last_j || s.charAt(j - 1) != par[1])) {
+                    remove(s.substring(0, j) + s.substring(j + 1), ans, 0, last_i, j, par);
+                }
+            }
+        }
+        else {
+            if (c == par[0]) count++;
+            if (c == par[1]) count--;
+            remove(s, ans, count, last_i + 1, last_j, par);
+        }
+    }
+}
+
+
 Solution 1: DFS
 // To make the prefix valid, we need to remove a ‘)’. The problem is: which one? The answer is any one in the prefix. 
 // However, if we remove any one, we will generate duplicates, e.x. s = ()). Thus, we noly remove 1st ) in a series of concecutive )s.
