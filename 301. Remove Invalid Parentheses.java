@@ -5,6 +5,56 @@
 "(a)())()" -> ["(a)()()", "(a())()"]
 ")(" -> [""]
 
+    def removeInvalidParentheses(self, s):
+	"""
+	:type s: str
+	:rtype: List[str]
+	"""
+	res = []
+	self.removeII(s, 0, 0, res, ['(', ')'])
+	return res
+
+    def removeII(self, s, start, lastDelete, r	es, p):
+	itr = start
+	count = 0
+	while itr < len(s):
+	    if s[itr] == p[0]:
+		count += 1
+	    if s[itr] == p[1]:
+		count -= 1
+	    if count < 0:
+		for i in range(lastDelete, itr+1):
+		    if s[i] == p[1] and (i == lastDelete or s[i-1] != p[1]):
+			self.removeII(s[:i] + s[i+1:], itr, i, res, p)
+		return
+	    itr += 1
+	if p[0] == '(':
+	    self.removeII(s[::-1], 0, 0, res, [')', '('])
+	else:
+	    if count == 0:
+		res.append(s[::-1])
+		return
+			
+# 简单版
+def removeParenthese(s):
+    s = remove(s, ['(', ')'], )
+    return remove(s[::-1], [')', '('])[::-1]
+
+def remove(s, p):
+    if not s:
+        return ''
+    count = 0
+    for i, c in enumerate(s):
+        if c == p[0]:
+            count += 1
+        if c == p[1]:
+            if count == 0:
+                return s[:i] + remove(s[i+1:], p)
+            else:
+                count -= 1
+    return s
+
+
 class Solution {
     public List<String> removeInvalidParentheses(String s) {
         List<String> ans = new ArrayList<String>();
