@@ -8,6 +8,21 @@ Both num1 and num2 does not contain any leading zero.
 You must not use any built-in BigInteger library or convert the inputs to integer directly.
 
 
+def multiply(self, num1, num2):
+    n1 = n2 = 0
+    for n in num1:
+        n1 = n1 * 10 + ord(n) - ord('0')
+    for n in num2:
+        n2 = n2 * 10 + ord(n) - ord('0')
+    res = ''
+    mul = n1 * n2
+    if not mul:
+        return '0'
+    while mul > 0:
+        res += str(mul % 10)
+        mul //= 10
+    return res[::-1]
+
 public String multiply(String num1, String num2) {
     int m = num1.length(), n = num2.length();
     int[] posNum = new int[m + n]; // important

@@ -11,11 +11,6 @@
 3.add newInterval之后的
 
 def insert(self, intervals, newInterval):
-"""
-:type intervals: List[Interval]
-:type newInterval: Interval
-:rtype: List[Interval]
-"""
     res = []
     i = 0
     while i < len(intervals) and intervals[i].end < newInterval.start:

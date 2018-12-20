@@ -6,6 +6,21 @@ s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 def decodeString(self, s):
+    stack, num = [['', 0]], ''
+    for c in s:
+        if c.isdigit():
+            num += c
+        elif c == '[':
+            stack.append(['', int(num)])
+            num = ''
+        elif c == ']':
+            st, count = stack.pop()
+            stack[-1][0] += st * count
+        else:
+            stack[-1][0] += c
+    return stack[0][0]
+
+def decodeString(self, s):
     stack = []; curNum = 0; curString = ''
     for c in s:
         if c == '[':

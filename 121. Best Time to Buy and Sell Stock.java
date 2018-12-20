@@ -41,6 +41,33 @@ public int maxProfit(int[] prices) {
 Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). 
 However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
 
+def maxProfit(self, prices):
+    res = 0
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i-1]:
+            res += prices[i] - prices[i-1]
+    return res
+
+A transaction is defined as buying at Prices[X] and selling at Prices[Y],
+the profit of the transaction
+Prices[Y] - Prices[X] 
+= Prices[Y] - Prices[Y-1] +
+   Prices[Y-1] - Prices[Y-2] ...
+    ....
+   Prices[X+1] - Prices[X] 
+= D[Y] + D[Y-1] + ... + D[X+1]
+= sum of D from X+1 to Y
+The problem is to find max(Prices[Y] - Prices[X]) which is equivalent to finding the largest sum of contiguous D's.
+
+To illustrate, if D[Y+1] is positive, it means Prices[Y+1] > Prices[Y], which implies I should sell at Prices[Y+1] instead of Prices[Y]. Basically it means I just add D[Y+1] to D[Y] + ... + D[X+1].
+
+Note that there could be a negative or zero D in the best running sequence. It doesn't matter so long the sum of the sequence is the largest.
+
+Now we are allowed unlimited transactions. So if there is a negative D, we could just break the sequence into 2, that is, into 2 transactions so as to avoid the negative element.
+
+This boils the whole problem down to adding up all positive sums of contiguous ints in D, which simplifies to just adding up all the positive ints.
+
+
 
 public int maxProfit(int[] prices) {
     int max = 0;

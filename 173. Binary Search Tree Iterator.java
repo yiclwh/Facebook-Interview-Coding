@@ -2,24 +2,34 @@
 # in order
 class BSTIterator(object):
     def __init__(self, root):
+        """
+        :type root: TreeNode
+        """
         self.root = root
         self.stack = []
-        itr = self.root
-        while itr:
-            self.stack.append(itr)
-            itr = itr.left
+        self.pushAllLeft(self.root)
+        
 
     def hasNext(self):
+        """
+        :rtype: bool
+        """
         return len(self.stack) > 0
 
     def next(self):
+        """
+        :rtype: int
+        """
         node = self.stack.pop()
-        if node.right:
-            itr = node.right
-            while itr:
-                self.stack.append(itr)
-                itr = itr.left
-        return node.val
+        res = node.val
+        node = node.right
+        self.pushAllLeft(node)
+        return res
+        
+    def pushAllLeft(self, node):
+        while node:
+            self.stack.append(node)
+            node = node.left
 
 public class BSTIterator {
     private Stack<TreeNode> stack;

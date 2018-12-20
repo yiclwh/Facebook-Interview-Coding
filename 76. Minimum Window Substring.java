@@ -4,6 +4,28 @@ S = "ADOBECODEBANC"
 T = "ABC"
 Minimum window is "BANC".
 
+def minWindow(self, s, t):
+    start = end = 0
+    need = collections.Counter(t)
+    count = len(need)
+    res = ''
+    while end < len(s):
+        if s[end] in need:
+            need[s[end]] -= 1
+            if need[s[end]] == 0:
+                count -= 1
+        while count == 0:
+            if s[start] in need:
+                if need[s[start]] == 0:
+                    break
+                else:
+                    need[s[start]] += 1
+            start += 1
+        if count == 0 and (not res or len(res) > end - start + 1):
+            res = s[start: end + 1]
+        end += 1
+    return res
+
     def minWindow(self, s, t):
         needs = {}
         for c in t:

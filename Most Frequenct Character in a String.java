@@ -1,5 +1,39 @@
 Most Frequenct Character in a String
 
+def findMostFrequent(s):
+    record = collections.defaultdict(int)
+    res = ''
+    count = 0
+    for c in s:
+        if c.isalnum():
+            c = c.lower()
+            record[c] += 1
+            if record[c] > count:
+                count = record[c]
+                res = c
+    return res
+
+def findMostFrequent(s):
+    record = collections.defaultdict(int)
+    c1 = c2 = ''
+    count1 = count2 = 0
+    for i, c in enumerate(s):
+        if c.isalnum():
+            c = c.lower()
+            record[c] += 1
+            if record[c] > count1:
+                count1 = record[c]
+                c1 = c
+            elif record[c] > count2:
+                count2 = record[c]
+                c2 = c
+            if count1 - count2 >= len(s) - i:
+                return c1
+    return c1
+    
+print(findMostFrequent('apple'))
+    
+print(findMostFrequent('apple'))
 
 hashmap存频率，然后维持count最大的
 public char findMostFrequent(String s) {

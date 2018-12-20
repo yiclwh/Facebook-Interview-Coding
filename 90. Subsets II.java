@@ -8,6 +8,21 @@ If nums = [1,2,2], a solution is:
   [1,2],
   []]
 
+def subsetsWithDup(self, nums):
+  res = []
+  nums.sort()
+  self.helper(nums, 0, res, [])
+  return res
+
+def helper(self, nums, start, res, path):
+  res.append(path[:])
+  for i in range(start, len(nums)):
+      if i > start and nums[i] == nums[i-1]:
+          continue
+      path.append(nums[i])
+      self.helper(nums, i +1, res, path)
+      path.pop()
+
 public List<List<Integer>> subsetsWithDup(int[] nums) {
     List<List<Integer>> res = new ArrayList<>();
     Arrays.sort(nums);

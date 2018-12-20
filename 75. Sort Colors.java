@@ -2,6 +2,20 @@
 // https://leetcode.com/problems/sort-colors/
 
 // 0,0,1,1,2,1,0,2,2
+def sortColors(self, nums):
+#  最小的要换两次，中间换一次，最大的不用换。m,l 代表中间和大的第一个数的index
+
+m = l= itr = 0
+while itr < len(nums):
+    if nums[itr] == 0:
+        nums[l], nums[itr] = nums[itr], nums[l]
+        nums[l], nums[m] = nums[m], nums[l]
+        m += 1
+        l += 1
+    elif nums[itr] == 1:
+        nums[l], nums[itr] = nums[itr], nums[l]
+        l += 1
+    itr += 1
 
 public void sortColors(int[] nums) {
     int zero = 0, two = nums.length - 1, i = 0;

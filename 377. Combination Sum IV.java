@@ -1,4 +1,41 @@
 377. Combination Sum IV
+def combinationSum4(self, nums, target):
+	record = [1] + [0] * target
+	for t in range(1, target + 1):
+		for num in nums:
+			if t >= num:
+				record[t] += record[t-num]
+	return record[target]
+
+416. Partition Equal Subset Sum
+def canPartition(self, nums):
+	s = sum(nums)
+	if s % 2 == 1:
+		return False
+	target = s //2
+	dp = [1] + [0] * target
+	for num in nums:
+		for t in range(target, 0, -1):
+			if t >= num:
+				dp[t] += dp[t-num]
+	return dp[target] > 0
+
+40. Combination Sum II
+def combinationSum2(self, candidates, target):
+	res = []
+	candidates.sort()
+	self.combHelper(res, [], candidates, target, 0)
+	return res
+
+def combHelper(self, res, aList, candidates, target, start):
+	if target == 0:
+		res.append(aList[:])
+	elif target > 0:
+		for index in range(start, len(candidates)):
+			if not (index > start and candidates[index] == candidates[index-1]):
+				aList.append(candidates[index])
+				self.combHelper(res, aList, candidates, target - candidates[index], index + 1)
+				aList.pop()
 
 比如[1,2,3] 4例子，当我们在计算dp[3]的时候，3可以拆分为1+x，而x即为x=dp[3-1]=dp[2]，3也可以拆分为2+x，此时x为x=dp[3-2]=dp[1]，
 3同样可以拆为3+x，此时x为x=dp[3-3]=dp[0]，我们把所有的情况加起来就是组成3的所有情况了。

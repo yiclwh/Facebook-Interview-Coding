@@ -1,7 +1,6 @@
 
-
-
 49. Group Anagrams
+
 
 Solution 1: hash+counting sort
 
@@ -27,14 +26,12 @@ public List<List<String>> groupAnagrams(String[] strs) {
 
 
 Solution 2: hash + sort
-from collections improt defaultdict
+
 def groupAnagrams(self, strs):
-
-    dic = defaultdict(list)
-    for string in strs:
-            dic[''.join(sorted(string))] += [string]
-
-    return [value for key, value in dic.items()]
+    record = collections.defaultdict(list)
+    for s in strs:
+        record[''.join(sorted(s))].append(s)
+    return [record[k] for k in record]
 
 O(mnlogn) time, O(m) space, m is the num of strs, n is the length of strs
 

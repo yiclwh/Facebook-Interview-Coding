@@ -1,6 +1,25 @@
 29. Divide Two Integers
 // https://leetcode.com/problems/divide-two-integers/
 
+def divide(self, dividend, divisor):
+    if dividend == 0:
+        return 0
+    if divisor == 0:
+        return float('inf')
+    positive = (dividend > 0) is (divisor > 0)
+    dividend, divisor = abs(dividend), abs(divisor)
+    res = 0
+    while divisor <= dividend:
+        div, i = divisor, 1
+        while div <= dividend:
+            dividend -= div
+            res += i
+            div <<= 1
+            i <<= 1
+    if not positive:
+        res = -res
+    return min(max(-2147483648, res), 2147483647)
+
 Suppose we want to divide 15 by 3, so 15 is dividend and 3 is divisor. Well, division simply requires us to find how many times we can subtract the divisor from the the dividend without making the dividend negative.
 We subtract 3 from 15 and we get 12, which is positive. Then, we shift 3 to the left by 1 bit and we get 6. 
 Subtracting 6 from 15 still gives a positive result. Well, we shift again and get 12. 

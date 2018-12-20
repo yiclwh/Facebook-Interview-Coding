@@ -1,5 +1,24 @@
 33. Search in Rotated Sorted Array
 
+def search(self, nums, target):
+    start, end = 0, len(nums) - 1
+    while start <= end:
+        mid = start + (end - start) //2 
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            # 每次只需要去原本的另一边考虑在另外一边的状况
+            if nums[mid] < nums[start] and target >= nums[start]:
+                end = mid - 1
+            else:
+                start = mid + 1
+        else:
+            if nums[mid] > nums[end] and target <= nums[end]:
+                start = mid +1
+            else:
+                end = mid - 1
+    return -1
+
 public int search(int[] nums, int target) {
     int left = 0, right = nums.length - 1;
     while (left < right) { // find min idx, when left == right return left

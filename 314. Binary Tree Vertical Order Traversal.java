@@ -1,5 +1,19 @@
 314. Binary Tree Vertical Order Traversal
 
+def verticalOrder(self, root):
+    record = {}
+    queue = collections.deque([(root, 0)])
+    while queue:
+        node, col = queue.popleft()
+        if node:
+            if col not in record:
+                record[col] = []
+            record[col].append(node.val)
+            queue.append((node.left, col - 1))
+            queue.append((node.right, col + 1))
+    return [val for key, val in sorted(record.items())]
+
+
 class TreeNodeWithCol {
     TreeNode treeNode;
     int col;

@@ -13,6 +13,18 @@ or first convert it to 2014 * 12 + 3, if the output is num of months
 Solution:
 O(nlogn) time, O(1)
 
+def merge(self, intervals):
+    if not intervals:
+        return []
+    res = []
+    intervals.sort(key = lambda x:x.start)
+    for v in intervals:
+        if not res or v.start > res[-1].end:
+            res.append(v)
+        elif v.start <= res[-1].end:
+            res[-1].end = max(res[-1].end, v.end)
+    return res
+
 注意：1.别忘先sort 2.中间用if-else 3.loop后别忘add最后一个interval
 
 public List<Interval> merge(List<Interval> intervals) {

@@ -6,6 +6,23 @@ The count-and-say sequence is the sequence of integers beginning as follows: 1, 
 21 is read off as "one 2, then one 1" or 1211.
 Given an integer n, generate the nth sequence.
 
+def countAndSay(self, n):
+    res, count = '1', 1
+    while count < n:
+        res = self.say(res)
+        count += 1
+    return res
+
+def say(self, res):
+    temp, i = '', 0
+    while i < len(res):
+        count = 1
+        while i+1 < len(res) and res[i] == res[i+1]:
+            i += 1
+            count += 1
+        temp += str(count) + res[i]
+        i += 1
+    return temp
 
 public String countAndSay(int n) {
     String res = "1";
